@@ -1,8 +1,8 @@
 ../Core/Src/main.c:62:11:adc_get_value_channel	32	static
-../Core/Src/main.c:85:7:pack_data	96	static
+../Core/Src/main.c:85:7:pack_data	112	static
 ../Core/Src/main.c:106:5:main	40	static
-../Core/Src/main.c:168:6:SystemClock_Config	88	static
-../Core/Src/main.c:212:13:MX_ADC1_Init	24	static
-../Core/Src/main.c:259:13:MX_SPI1_Init	8	static
-../Core/Src/main.c:296:13:MX_GPIO_Init	16	static
-../Core/Src/main.c:318:6:Error_Handler	4	static,ignoring_inline_asm
+../Core/Src/main.c:167:6:SystemClock_Config	88	static
+../Core/Src/main.c:211:13:MX_ADC1_Init	24	static
+../Core/Src/main.c:258:13:MX_SPI1_Init	8	static
+../Core/Src/main.c:295:13:MX_GPIO_Init	16	static
+../Core/Src/main.c:317:6:Error_Handler	4	static,ignoring_inline_asm

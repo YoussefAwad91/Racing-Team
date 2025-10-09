@@ -72,18 +72,18 @@ static void MX_USART1_UART_Init(void);
 	void displayData(uint8_t* rxbuffer){
 		uint16_t caseID = ((uint16_t)rxbuffer[0] << 8) | (rxbuffer[1]); //first 16 bits for case id
 		if ((uint8_t)caseID == 0 || (uint8_t)(caseID>>8) != 0x10) return;
-		uint16_t engine_temp = ((uint16_t)rxbuffer[2] << 2 ) | (rxbuffer[3] >> 6); // 10 bits for engine temperature
-		uint16_t throttle_pos  = ((uint16_t)(rxbuffer[3] & 0x3F)<<4) | (rxbuffer[4]>>4); // 10 bits for throttle position
+		uint16_t engine_temp = ((uint16_t)rxbuffer[2] << 4) | (rxbuffer[3] >> 4); // 12 bits for engine temperature
+		uint16_t throttle_pos = ((uint16_t)(rxbuffer[3] & 0x0F) << 4) | (rxbuffer[4] >> 4); // 8 bits for throttle position
 		uint16_t voltage = ((uint16_t)rxbuffer[5] << 4) | rxbuffer[6]>>4; //12 bits for voltage
 		uint16_t wheel_speed = ((uint16_t)(rxbuffer[6]& 0x0F) << 8) | (rxbuffer[7]);//12 bits for wheel speed
 		char full_msg[100];
 
 		int voltage_decimal = (voltage * 80/4095) % 10 +1;
-		int scaled_throttle = throttle_pos*100/1023 + 1;
-		int scaled_engine_temp = engine_temp*150/1023 + 1 ;
+		int scaled_throttle = throttle_pos*100/256 + 1;
+		int scaled_engine_temp = engine_temp*150/4095 + 1 ;
 
 		snprintf(full_msg,sizeof(full_msg) ,"Case ID: 0x%04X\r\nEngine Temp: %d C\r\nThrottle: %d %%\r\nVoltage: %d.%d V\r\nSpeed: %d km/h\r\n",
-		          caseID, scaled_engine_temp/3, scaled_throttle/3, voltage * 8/4095,voltage_decimal, (int)(wheel_speed*300.0/4095+0.9));
+		          caseID, scaled_engine_temp/3, scaled_throttle, voltage * 8/4095,voltage_decimal, (int)(wheel_speed*300.0/4095+0.9));
 		HAL_UART_Transmit(&huart1, (uint8_t*)full_msg, strlen(full_msg), 100);
 	}
 

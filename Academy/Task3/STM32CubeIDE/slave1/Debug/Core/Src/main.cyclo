@@ -1,8 +1,8 @@
 ../Core/Src/main.c:62:11:adc_get_value_channel	3
 ../Core/Src/main.c:85:7:pack_data	1
 ../Core/Src/main.c:106:5:main	1
-../Core/Src/main.c:168:6:SystemClock_Config	4
-../Core/Src/main.c:212:13:MX_ADC1_Init	3
-../Core/Src/main.c:259:13:MX_SPI1_Init	2
-../Core/Src/main.c:296:13:MX_GPIO_Init	1
-../Core/Src/main.c:318:6:Error_Handler	1
+../Core/Src/main.c:167:6:SystemClock_Config	4
+../Core/Src/main.c:211:13:MX_ADC1_Init	3
+../Core/Src/main.c:258:13:MX_SPI1_Init	2
+../Core/Src/main.c:295:13:MX_GPIO_Init	1
+../Core/Src/main.c:317:6:Error_Handler	1

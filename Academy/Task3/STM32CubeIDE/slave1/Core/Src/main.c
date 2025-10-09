@@ -86,9 +86,9 @@ static void MX_ADC1_Init(void);
 	{
 
 	    uint64_t combined_data = ((uint64_t)rxbuffer[0] << 32) |
-	                             ((uint64_t)rxbuffer[1] << 24) |
-	                             ((uint64_t)engine_temp << 14) |
-	                             ((uint64_t)throttle_pos << 4);
+                				 ((uint64_t)rxbuffer[1] << 24) |
+								 ((uint64_t)(engine_temp & 0xFFF) << 12) |
+								 ((uint64_t)(throttle_pos & 0xFF) << 4);
 
 	    txbuffer[0] = (uint8_t)(combined_data >> 32);
 	    txbuffer[1] = (uint8_t)(combined_data >> 24);
@@ -149,10 +149,9 @@ int main(void)
 
 	  HAL_SPI_TransmitReceive(&hspi1, txbuffer, rxbuffer,8, HAL_MAX_DELAY);
 
-	  uint16_t scaled_throttle = (uint16_t)((float)throttle_pos / 4095.0f * 1023.0f);
-	  uint16_t scaled_temp     = (uint16_t)((float)engine_temp / 4095.0f * 1023.0f);
+	  uint16_t scaled_throttle = (uint16_t)((float)throttle_pos / 4095.0f * 256.0f);
 
-	  pack_data(txbuffer, rxbuffer, scaled_temp, scaled_throttle);
+	  pack_data(txbuffer, rxbuffer, engine_temp, scaled_throttle);
 
     /* USER CODE END WHILE */
 
